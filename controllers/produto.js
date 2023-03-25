@@ -26,13 +26,9 @@ produto.post("/add", function(req, res){
 
 //produto - nota
 produto.get("/produto/nota", function(req, res){
-    modelProduto.findAll().then(function(produtos){
-            
-        modelNota.findAll().then(function(notaProduto){
-                res.send({produtos, notaProduto})
-            })
-        
-        })
+    modelNota.findAll({include: {model: modelProduto}}).then(function(results){
+        res.send(results)
+    })
 })
 
 module.exports = produto
